@@ -1,0 +1,256 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block meta_title %}Contact Us - Redeemed Life Church{% endblock %}
+
+{% block content %}
+<div class="contact-page">
+    {% if messages %}
+    <div class="messages mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <i class="bx {% if message.tags == 'success' %}bxs-check-circle{% else %}bxs-error-circle{% endif %}"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="hero-section text-center mb-5">
+        <h1 class="display-4 mb-3">
+            <i class="bx bxs-contact text-primary"></i> Contact Us
+        </h1>
+        <p class="lead">We'd love to hear from you. Reach out to us through any of these channels.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Contact Information -->
+        <div class="col-lg-4">
+            <div class="contact-info card h-100" data-aos="fade-right">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Get in Touch</h3>
+                    
+                    <!-- Phone Numbers -->
+                    <div class="contact-item mb-4">
+                        <h5><i class="bx bxs-phone-call text-primary"></i> Phone</h5>
+                        <p class="mb-2">
+                            <strong>MTN:</strong> 
+                            <a href="tel:+256772400490" class="text-decoration-none">
+                                +256 772 400490
+                            </a>
+                        </p>
+                        <p>
+                            <strong>Airtel:</strong> 
+                            <a href="tel:+256752888899" class="text-decoration-none">
+                                +256 752 888899
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-item mb-4">
+                        <h5><i class="bx bxs-envelope text-primary"></i> Email</h5>
+                        <p>
+                            <a href="mailto:redeemedlifem@gmail.com" class="text-decoration-none">
+                                redeemedlifem@gmail.com
+                            </a>
+                        </p>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="contact-item mb-4">
+                        <h5><i class="bx bxs-map text-primary"></i> Location</h5>
+                        <p>Bunamwaya, Ngobe<br>Kampala, Uganda</p>
+                    </div>
+
+                    <!-- Service Times -->
+                    <div class="contact-item">
+                        <h5><i class="bx bxs-time text-primary"></i> Service Times</h5>
+                        <p class="mb-2">
+                            <strong>Sunday Service:</strong> 10:00 AM
+                        </p>
+                        <p class="mb-2">
+                            <strong>Bible Study:</strong> Wednesday 7:00 PM
+                        </p>
+                        <p>
+                            <strong>Youth Service:</strong> Friday 6:30 PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="col-lg-8">
+            <div class="card" data-aos="fade-left">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Send us a Message</h3>
+                    
+                    <form method="post" class="contact-form">
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    {{ form.name|add_class:"form-control"|attr:"placeholder:Enter your name" }}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    {{ form.email|add_class:"form-control"|attr:"placeholder:Enter your email" }}
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    {{ form.subject|add_class:"form-control"|attr:"placeholder:What is this about?" }}
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="message" class="form-label">Message</label>
+                                    {{ form.message|add_class:"form-control"|attr:"rows:5"|attr:"placeholder:Your message here..." }}
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bx bxs-send"></i> Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card" data-aos="fade-up">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">Find Us</h3>
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7828080038657!2d32.5455416!3d0.24174140000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177d979edba4bd4f%3A0xad4e06e201c6b8fd!2sRedeemed%20Life%20Church%20-%20Bunamwaya%2C%20Ngobe!5e0!3m2!1sen!2sug!4v1740225084260!5m2!1sen!2sug"
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.messages {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1000;
+    min-width: 300px;
+}
+
+.alert {
+    background: var(--surface);
+    border: none;
+    box-shadow: var(--shadow);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.alert i {
+    margin-right: 0.5rem;
+}
+
+.alert-success {
+    border-left: 4px solid var(--success);
+}
+
+.alert-error {
+    border-left: 4px solid var(--danger);
+}
+
+.contact-page {
+    padding: 2rem 0;
+}
+
+.contact-info .contact-item {
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.contact-info .contact-item:hover {
+    transform: translateX(10px);
+}
+
+.contact-info .contact-item h5 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.contact-info .contact-item a {
+    color: var(--text);
+    transition: color 0.3s ease;
+}
+
+.contact-info .contact-item a:hover {
+    color: var(--primary);
+}
+
+.contact-form .form-control {
+    border: 2px solid var(--border);
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.1);
+}
+
+.map-container {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card {
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+.btn-primary {
+    padding: 0.75rem 2rem;
+}
+
+.btn-primary i {
+    margin-right: 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+AOS.init({
+    duration: 800,
+    once: true
+});
+</script>
+{% endblock %} 

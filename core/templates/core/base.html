@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Primary Meta Tags -->
+    <title>{% block meta_title %}{{ seo_metadata.meta_title }}{% endblock %}</title>
+    <meta name="title" content="{% block meta_title_content %}{{ seo_metadata.meta_title }}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{{ seo_metadata.meta_description }}{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{% block og_title %}{{ seo_metadata.og_title }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ seo_metadata.og_description }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/church-preview.jpg' %}{% endblock %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ block.super }}{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}{{ block.super }}{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}{% static 'images/church-preview.jpg' %}{% endblock %}">
+    
+    <!-- Additional SEO -->
+    <meta name="keywords" content="{% block meta_keywords %}{{ seo_metadata.meta_keywords }}{% endblock %}">
+    <meta name="author" content="Redeemed Life Church">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ canonical_url }}">
+    
+    <!-- Language and Locale -->
+    <meta property="og:locale" content="en_US">
+    <link rel="alternate" href="{{ request.build_absolute_uri }}" hreflang="en-us">
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Enhanced UI Frameworks -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap and Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    
+    <!-- Ensure all CSS is loaded properly -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Modern Navigation -->
+    <nav class="navbar navbar-expand-lg glass">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="bx bxs-church text-primary"></i> Redeemed Life Church
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bx bx-menu" style="font-size: 24px;"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">
+                            <i class="bx bxs-home-heart"></i> Home
+                        </a>
+                    </li>
+                    <!-- About Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bx bxs-info-circle"></i> About Us
+                        </a>
+                        <ul class="dropdown-menu glass">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'about' %}">
+                                    <i class="bx bxs-book-heart"></i> Our Story
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'staff' %}">
+                                    <i class="bx bxs-group"></i> Our Team
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'services' %}">
+                                    <i class="bx bxs-bible"></i> Services
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Resources Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bx bxs-book-open"></i> Resources
+                        </a>
+                        <ul class="dropdown-menu glass">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'sermons' %}">
+                                    <i class="bx bxs-microphone-alt"></i> Sermons
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'events' %}">
+                                    <i class="bx bxs-calendar-star"></i> Events
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'newsletter' %}">
+                                    <i class="bx bxs-news"></i> Newsletter
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Connect Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bx bxs-heart"></i> Connect
+                        </a>
+                        <ul class="dropdown-menu glass">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'prayer_request' %}">
+                                    <i class="bx bxs-hand"></i> Prayer Requests
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'donate' %}">
+                                    <i class="bx bxs-heart-circle"></i> Give
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'contact' %}">
+                                    <i class="bx bxs-message-rounded-dots"></i> Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container my-4">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bx bxs-church"></i> Redeemed Life Church</h5>
+                    <p>
+                        <i class="bx bxs-map-pin"></i> Bunamwaya, Ngobe<br>
+                        <i class="bx bxs-phone-call"></i> MTN: +256 772 400490<br>
+                        <i class="bx bxs-phone-call"></i> Airtel: +256 752 888899<br>
+                        <i class="bx bxs-envelope"></i> redeemedlifem@gmail.com
+                    </p>
+                    <div class="service-times mt-3">
+                        <h6><i class="bx bxs-time"></i> Service Times</h6>
+                        <p class="mb-1">Sunday Service: 10:00 AM</p>
+                        <p class="mb-1">Bible Study: Wed 7:00 PM</p>
+                        <p>Youth Service: Fri 6:30 PM</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bx bxs-bookmark-heart"></i> Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}"><i class="bx bxs-home"></i> Home</a></li>
+                        <li><a href="{% url 'about' %}"><i class="bx bxs-book-heart"></i> About Us</a></li>
+                        <li><a href="{% url 'services' %}"><i class="bx bxs-bible"></i> Services</a></li>
+                        <li><a href="{% url 'events' %}"><i class="bx bxs-calendar"></i> Events</a></li>
+                        <li><a href="{% url 'sermons' %}"><i class="bx bxs-microphone"></i> Sermons</a></li>
+                        <li><a href="{% url 'prayer_request' %}"><i class="bx bxs-hand"></i> Prayer Requests</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="bx bxs-share-alt"></i> Connect With Us</h5>
+                    <div class="social-icons mb-3">
+                        <a href="#" class="text-dark me-2"><i class="bx bxl-facebook-circle bx-tada-hover"></i></a>
+                        <a href="#" class="text-dark me-2"><i class="bx bxl-twitter bx-tada-hover"></i></a>
+                        <a href="#" class="text-dark me-2"><i class="bx bxl-instagram-alt bx-tada-hover"></i></a>
+                        <a href="#" class="text-dark"><i class="bx bxl-youtube bx-tada-hover"></i></a>
+                    </div>
+                    <div class="cta-buttons">
+                        <a href="{% url 'donate' %}" class="btn btn-primary mb-2 w-100">
+                            <i class="bx bxs-heart"></i> Support Our Ministry
+                        </a>
+                        <a href="{% url 'newsletter' %}" class="btn btn-outline-primary w-100">
+                            <i class="bx bxs-news"></i> Subscribe to Newsletter
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; {% now "Y" %} Redeemed Life Church. All rights reserved.</p>
+                <p class="small text-muted mt-2">
+                    <i class="bx bxs-church"></i> Transforming Lives Through Faith in Jesus Christ
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Only load Lightbox on pages that need it -->
+    {% if needs_lightbox %}
+        <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.4/dist/js/lightbox.min.js"></script>
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/notifications.js' %}"></script>
+    <script>
+        // Wait for DOM and scripts to load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Debug check
+            console.log('DOM loaded');
+            
+            if (typeof PageNotification === 'undefined') {
+                console.error('PageNotification class not loaded!');
+                return;
+            }
+
+            // Initialize notifications
+            const pageNotification = new PageNotification();
+            
+            // Get current page
+            const currentPage = window.location.pathname.split('/')[1] || 'home';
+            console.log('Current page:', currentPage);
+            
+            // Show notification
+            pageNotification.show(currentPage);
+
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

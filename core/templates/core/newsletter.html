@@ -1,0 +1,233 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block meta_title %}Church Newsletter - Stay Connected with Redeemed Life Church{% endblock %}
+
+{% block meta_description %}Subscribe to our church newsletter and stay updated with weekly devotionals, church events, announcements, and spiritual insights. Download past newsletters and join our community.{% endblock %}
+
+{% block meta_keywords %}church newsletter, christian newsletter, weekly devotionals, church updates, spiritual insights, church events, religious community{% endblock %}
+
+{% block og_title %}Church Newsletter - Redeemed Life Church{% endblock %}
+
+{% block og_description %}Stay connected with our church community through our weekly newsletter. Get spiritual insights, event updates, and more delivered to your inbox.{% endblock %}
+
+{% block title %}Newsletter - Redeemed Life Church{% endblock %}
+
+{% block content %}
+<!-- Newsletter Hero -->
+<div class="newsletter-hero text-center mb-5">
+    <h1 class="display-4 mb-3">Church Newsletter</h1>
+    <p class="lead">Stay connected with our community</p>
+</div>
+
+<div class="row justify-content-center">
+    <!-- Newsletter Features -->
+    <div class="col-lg-8 mb-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 feature-card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-newspaper display-4 mb-3"></i>
+                        <h3>Weekly Updates</h3>
+                        <p>Stay informed about church events, news, and announcements</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 feature-card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-journal-richtext display-4 mb-3"></i>
+                        <h3>Devotionals</h3>
+                        <p>Receive weekly devotionals and spiritual insights</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 feature-card text-center">
+                    <div class="card-body">
+                        <i class="bi bi-people display-4 mb-3"></i>
+                        <h3>Community</h3>
+                        <p>Connect with your church family and ministry updates</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscription Form -->
+    <div class="col-lg-6">
+        <div class="card subscription-card">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4">Subscribe to Our Newsletter</h2>
+                <form id="newsletter-form" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="name" required>
+                        <div class="invalid-feedback">Please enter your name</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="email" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Interests</label>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" name="interests" value="church_news" checked>
+                            <label class="form-check-label">Church News & Updates</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" name="interests" value="devotionals">
+                            <label class="form-check-label">Weekly Devotionals</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" name="interests" value="events">
+                            <label class="form-check-label">Events & Activities</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="interests" value="prayer_requests">
+                            <label class="form-check-label">Prayer Requests</label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Preferred Format</label>
+                        <select class="form-select" name="format" required>
+                            <option value="">Choose format...</option>
+                            <option value="html">HTML Email</option>
+                            <option value="text">Plain Text</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a format</div>
+                    </div>
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="privacy" required>
+                            <label class="form-check-label">
+                                I agree to receive newsletters and accept the <a href="#">privacy policy</a>
+                            </label>
+                            <div class="invalid-feedback">You must agree to the privacy policy</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-envelope-check"></i> Subscribe Now
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sample Newsletter -->
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <h3 class="mb-3">View Sample Newsletter</h3>
+                <p class="mb-4">See what you'll receive in your inbox</p>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sampleNewsletter">
+                    <i class="bi bi-eye"></i> Preview Newsletter
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this section after the subscription form -->
+<div class="col-12 mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title mb-4">Available Newsletters</h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for newsletter in newsletters %}
+                        <tr>
+                            <td class="align-middle">{{ newsletter.get_display_name }}</td>
+                            <td class="align-middle">{{ newsletter.date_created|date:"F Y" }}</td>
+                            <td class="align-middle text-end">
+                                <a href="{{ newsletter.file.url }}" class="btn btn-sm btn-primary" target="_blank">
+                                    <i class="bi bi-download"></i> Download
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No newsletters available yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sample Newsletter Modal -->
+<div class="modal fade" id="sampleNewsletter" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Sample Newsletter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="newsletter-preview">
+                    <!-- Add sample newsletter content here -->
+                    <img src="{% static 'images/newsletter-sample.jpg' %}" class="img-fluid rounded mb-4" alt="Newsletter Sample">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+// Form validation
+document.getElementById('newsletter-form').addEventListener('submit', function(event) {
+    if (!this.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+    this.classList.add('was-validated');
+});
+
+// Success message
+function showSuccessMessage() {
+    const toast = document.createElement('div');
+    toast.className = 'toast-success';
+    toast.innerHTML = `
+        <div class="toast-content">
+            <i class="bi bi-check-circle"></i>
+            <span>Successfully subscribed to newsletter!</span>
+        </div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Church Newsletter - Redeemed Life Church",
+  "description": "Subscribe to our church newsletter and stay updated with weekly devotionals, church events, announcements, and spiritual insights.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Redeemed Life Church",
+    "logo": "{% static 'images/logo.png' %}"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+{% endblock %} 

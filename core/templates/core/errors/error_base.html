@@ -1,0 +1,211 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<!-- Make sure all CSS is loaded -->
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block meta_title %}{{ error_title }} - Redeemed Life Church{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <div class="error-container">
+        <div class="error-content" data-aos="fade-up">
+            <div class="error-code">
+                <span class="error-number">{{ error_code }}</span>
+                <div class="error-circle"></div>
+            </div>
+            <h1 class="error-title">{{ error_title }}</h1>
+            <p class="error-message">{{ error_message }}</p>
+            {% if path %}
+            <p class="error-path">Path: {{ path }}</p>
+            {% endif %}
+            
+            <div class="error-actions">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg pulse-button">
+                    <i class="bi bi-house-heart"></i> Return Home
+                </a>
+                <a href="{% url 'contact' %}" class="btn btn-outline-primary btn-lg hover-float">
+                    <i class="bi bi-envelope-paper-heart"></i> Contact Support
+                </a>
+            </div>
+
+            <div class="error-help mt-5">
+                <div class="help-section">
+                    <h4 class="mb-4">Quick Links</h4>
+                    <div class="quick-links">
+                        <a href="{% url 'events' %}" class="quick-link-card">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Events</span>
+                        </a>
+                        <a href="{% url 'sermons' %}" class="quick-link-card">
+                            <i class="bi bi-mic"></i>
+                            <span>Sermons</span>
+                        </a>
+                        <a href="{% url 'newsletter' %}" class="quick-link-card">
+                            <i class="bi bi-newspaper"></i>
+                            <span>Newsletter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--background) 100%);
+    padding: 2rem;
+}
+
+.error-container {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.error-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+}
+
+.error-code {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+}
+
+.error-number {
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--primary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.error-circle {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    animation: pulse 2s infinite;
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+}
+
+.error-message {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-actions {
+    margin-bottom: 3rem;
+}
+
+.error-actions .btn {
+    margin: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.pulse-button {
+    animation: pulse 2s infinite;
+}
+
+.hover-float:hover {
+    transform: translateY(-5px);
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.quick-link-card {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quick-link-card:hover {
+    transform: translateY(-3px);
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.quick-link-card i {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .error-content {
+        padding: 2rem;
+    }
+    
+    .error-number {
+        font-size: 6rem;
+    }
+    
+    .error-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %} 

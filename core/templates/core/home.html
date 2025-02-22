@@ -1,0 +1,128 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Welcome to Redeemed Life Church{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section text-center py-5 mb-5">
+    <h1 class="display-3 mb-4">Welcome to Redeemed Life Church</h1>
+    <p class="lead mb-4">Join us as we worship, grow, and serve together</p>
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'services' %}" class="btn btn-primary btn-lg">
+            <i class="bi bi-calendar-check"></i> Join Us Sunday
+        </a>
+        <a href="{% url 'about' %}" class="btn btn-outline-primary btn-lg">
+            <i class="bi bi-info-circle"></i> Learn More
+        </a>
+    </div>
+</div>
+
+<!-- Service Times -->
+<div class="row mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 service-card">
+            <div class="card-body text-center">
+                <i class="bi bi-sun display-4 mb-3 text-primary"></i>
+                <h3>Sunday Service</h3>
+                <p class="lead">10:00 AM</p>
+                <p>Join us for worship, prayer, and teaching</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 service-card">
+            <div class="card-body text-center">
+                <i class="bi bi-book display-4 mb-3 text-primary"></i>
+                <h3>Bible Study</h3>
+                <p class="lead">Wednesday 7:00 PM</p>
+                <p>Deep dive into God's Word together</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 service-card">
+            <div class="card-body text-center">
+                <i class="bi bi-people display-4 mb-3 text-primary"></i>
+                <h3>Youth Group</h3>
+                <p class="lead">Friday 6:30 PM</p>
+                <p>Fun, fellowship, and faith for teens</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Sermons -->
+<div class="mb-5">
+    <h2 class="text-center mb-4">Latest Sermons</h2>
+    <div class="row">
+        {% for sermon in latest_sermons %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ sermon.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <i class="bi bi-person"></i> {{ sermon.speaker.name }}
+                    </h6>
+                    <p class="card-text">{{ sermon.description|truncatewords:20 }}</p>
+                    {% if sermon.video_url %}
+                    <a href="{{ sermon.video_url }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-play-circle"></i> Watch
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No sermons available yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Upcoming Events -->
+<div class="mb-5">
+    <h2 class="text-center mb-4">Upcoming Events</h2>
+    <div class="row">
+        {% for event in upcoming_events %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if event.image %}
+                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text">
+                        <i class="bi bi-calendar-event"></i> {{ event.date|date:"F j, Y - g:i A" }}<br>
+                        <i class="bi bi-geo-alt"></i> {{ event.location }}
+                    </p>
+                    <a href="{% url 'events' %}" class="btn btn-outline-primary btn-sm">Learn More</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center">
+            <p>No upcoming events at this time.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="cta-section text-center py-5 rounded">
+    <h2 class="mb-4">Get Involved</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'prayer_request' %}" class="btn btn-outline-primary btn-lg w-100">
+                <i class="bi bi-pray"></i> Submit Prayer Request
+            </a>
+        </div>
+        <div class="col-md-4 mb-3">
+            <a href="{% url 'donate' %}" class="btn btn-outline-primary btn-lg w-100">
+                <i class="bi bi-heart"></i> Support Our Ministry
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

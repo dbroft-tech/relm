@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Prayer Request - Redeemed Life Church{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-4">Prayer Request</h1>
+        <p class="lead">Cast your cares upon Him, for He cares for you - 1 Peter 5:7</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card prayer-card">
+                <div class="card-body">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="prayer-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-person"></i> Your Name
+                                </label>
+                                {% render_field form.name class="form-control" placeholder="Enter your name" %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">
+                                    <i class="bi bi-envelope"></i> Email
+                                </label>
+                                {% render_field form.email class="form-control" placeholder="Enter your email" %}
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                <i class="bi bi-chat-text"></i> Prayer Request
+                            </label>
+                            {% render_field form.request class="form-control" rows="5" placeholder="Share your prayer request..." %}
+                        </div>
+                        <div class="mb-4">
+                            <div class="form-check">
+                                {% render_field form.is_private class="form-check-input" %}
+                                <label class="form-check-label">
+                                    Keep this request private
+                                </label>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-pray"></i> Submit Prayer Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Prayer Support Section -->
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h3 class="mb-3">Need Immediate Prayer Support?</h3>
+                    <p class="mb-4">Our prayer team is available 24/7</p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <a href="tel:+256XXXXXXXX" class="btn btn-outline-primary btn-lg w-100 mb-3">
+                                <i class="bi bi-telephone"></i> Call Prayer Line
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

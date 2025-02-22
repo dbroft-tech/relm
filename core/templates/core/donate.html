@@ -1,0 +1,186 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block meta_title %}Support Our Ministry - Redeemed Life Church{% endblock %}
+
+{% block content %}
+<div class="donation-page">
+    <div class="hero-section text-center mb-5">
+        <h1 class="display-4 mb-3"><i class="bx bxs-heart-circle text-primary"></i> Support Our Ministry</h1>
+        <p class="lead">Your generous giving helps us continue our mission and impact lives.</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Mobile Money Section -->
+        <div class="col-md-6">
+            <div class="card h-100 donation-card" data-aos="fade-up">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">
+                        <i class="bx bxs-phone text-primary"></i> Mobile Money
+                    </h3>
+                    
+                    <!-- MTN Section -->
+                    <div class="payment-method mb-4">
+                        <h5><i class="bx bxs-badge-check text-warning"></i> MTN Mobile Money</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="number-label">Number:</span>
+                            <span class="number-value ms-2">+256 772 400490</span>
+                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="copyToClipboard('+256772400490')">
+                                <i class="bx bx-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Airtel Section -->
+                    <div class="payment-method">
+                        <h5><i class="bx bxs-badge-check text-danger"></i> Airtel Money</h5>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="number-label">Number:</span>
+                            <span class="number-value ms-2">+256 752 888899</span>
+                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="copyToClipboard('+256752888899')">
+                                <i class="bx bx-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-3">
+                        <i class="bx bxs-info-circle"></i> Please include your name as reference when sending.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Transfer Section -->
+        <div class="col-md-6">
+            <div class="card h-100 donation-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">
+                        <i class="bx bxs-bank text-primary"></i> Bank Transfer
+                    </h3>
+                    <div class="bank-details">
+                        <div class="mb-3">
+                            <h5>Bank Details</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <strong>Bank:</strong> 
+                                    <span>Equity Bank</span>
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Account Name:</strong> 
+                                    <span>RLM Ministries</span>
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Account Number:</strong> 
+                                    <span>1034200996551</span>
+                                    <button class="btn btn-sm btn-outline-primary ms-2" onclick="copyToClipboard('1034200996551')">
+                                        <i class="bx bx-copy"></i> Copy
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card donation-info" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-body">
+                    <h4><i class="bx bxs-info-circle text-primary"></i> Important Information</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="bx bxs-check-circle text-success"></i> All donations are tax-deductible</li>
+                        <li><i class="bx bxs-check-circle text-success"></i> You will receive a confirmation email</li>
+                        <li><i class="bx bxs-check-circle text-success"></i> For any queries, contact our finance team</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.donation-page {
+    padding: 2rem 0;
+}
+
+.donation-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.donation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.payment-method {
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 0.5rem;
+}
+
+.number-label {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.number-value {
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+.bank-details ul li {
+    padding: 0.5rem;
+    background: var(--surface);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.donation-info ul li {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.donation-info ul li i {
+    position: absolute;
+    left: 0;
+    top: 0.2rem;
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Show toast notification
+        const toast = document.createElement('div');
+        toast.className = 'toast show';
+        toast.innerHTML = '<i class="bx bxs-check-circle text-success"></i> Copied to clipboard!';
+        document.body.appendChild(toast);
+        
+        // Remove toast after 3 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+    });
+}
+
+// Initialize AOS
+AOS.init({
+    duration: 800,
+    once: true
+});
+</script>
+{% endblock %} 

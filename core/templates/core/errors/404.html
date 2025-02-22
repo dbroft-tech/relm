@@ -1,0 +1,261 @@
+{% extends 'core/errors/error_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+{{ block.super }}
+<style>
+/* Enhanced 404 Animations */
+.error-number {
+    background: linear-gradient(45deg, var(--primary) 0%, var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: float 6s ease-in-out infinite;
+}
+
+.error-circle {
+    background: radial-gradient(circle at center, var(--primary-light) 0%, transparent 70%);
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.error-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.error-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+    transform: translateX(-100%);
+    animation: shine 5s infinite;
+}
+
+.error-path {
+    font-family: monospace;
+    background: var(--surface);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: var(--text-light);
+    display: inline-block;
+    margin: 1rem 0;
+    border: 1px solid var(--border);
+    animation: shake 0.5s ease-in-out;
+}
+
+.quick-link-card {
+    animation: float-small 4s ease-in-out infinite;
+    animation-delay: calc(var(--animation-order) * 0.2s);
+}
+
+.quick-link-card:nth-child(1) { --animation-order: 1; }
+.quick-link-card:nth-child(2) { --animation-order: 2; }
+.quick-link-card:nth-child(3) { --animation-order: 3; }
+
+/* Interactive 404 Text */
+.error-title {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+}
+
+.error-title:hover {
+    animation: rubberBand 1s;
+}
+
+/* Animated Background Pattern */
+.error-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 48%, var(--primary-light) 49%, var(--primary-light) 51%, transparent 52%) 0 0 / 20px 20px,
+        linear-gradient(-45deg, transparent 48%, var(--primary-light) 49%, var(--primary-light) 51%, transparent 52%) 0 0 / 20px 20px;
+    opacity: 0.1;
+    animation: patternMove 30s linear infinite;
+    pointer-events: none;
+}
+
+/* Search Suggestion Section */
+.search-suggestions {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.suggestion-item:hover {
+    background: var(--primary-light);
+    transform: translateX(10px);
+}
+
+.suggestion-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: var(--primary);
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes float-small {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes pulse-glow {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    20%, 100% { transform: translateX(100%); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+@keyframes rubberBand {
+    0% { transform: scale(1); }
+    30% { transform: scaleX(1.25) scaleY(0.75); }
+    40% { transform: scaleX(0.75) scaleY(1.25); }
+    50% { transform: scaleX(1.15) scaleY(0.85); }
+    65% { transform: scaleX(0.95) scaleY(1.05); }
+    75% { transform: scaleX(1.05) scaleY(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes patternMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+</style>
+{% endblock %}
+
+{% block error_code %}404{% endblock %}
+{% block error_title %}Page Not Found{% endblock %}
+{% block error_message %}
+We're sorry, but the page you're looking for cannot be found. It might have been moved, deleted, or never existed.
+{% endblock %}
+
+{% block error_content %}
+<div class="search-suggestions">
+    <h4 class="mb-3">Popular Pages</h4>
+    <a href="{% url 'events' %}" class="suggestion-item">
+        <i class="bi bi-calendar-event suggestion-icon"></i>
+        <div>
+            <h5 class="mb-1">Upcoming Events</h5>
+            <small>Check out our latest church events and activities</small>
+        </div>
+    </a>
+    <a href="{% url 'sermons' %}" class="suggestion-item">
+        <i class="bi bi-collection-play suggestion-icon"></i>
+        <div>
+            <h5 class="mb-1">Recent Sermons</h5>
+            <small>Watch or listen to our latest sermons</small>
+        </div>
+    </a>
+    <a href="{% url 'prayer_request' %}" class="suggestion-item">
+        <i class="bi bi-heart suggestion-icon"></i>
+        <div>
+            <h5 class="mb-1">Prayer Requests</h5>
+            <small>Submit your prayer requests or pray for others</small>
+        </div>
+    </a>
+</div>
+
+<div class="error-message-container mt-4">
+    <p class="text-muted">
+        <i class="bi bi-info-circle"></i>
+        If you believe this is a technical error, please 
+        <a href="{% url 'contact' %}" class="text-primary">contact our support team</a>.
+    </p>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add hover effect to error number
+    const errorNumber = document.querySelector('.error-number');
+    errorNumber.addEventListener('mouseover', function() {
+        this.style.transform = 'scale(1.1) rotate(5deg)';
+    });
+    errorNumber.addEventListener('mouseout', function() {
+        this.style.transform = 'scale(1) rotate(0)';
+    });
+
+    // Add particle effect to error circle
+    const errorCircle = document.querySelector('.error-circle');
+    errorCircle.addEventListener('click', function(e) {
+        createParticles(e.clientX, e.clientY);
+    });
+
+    function createParticles(x, y) {
+        for (let i = 0; i < 10; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.width = '10px';
+            particle.style.height = '10px';
+            particle.style.background = getComputedStyle(document.documentElement)
+                .getPropertyValue('--primary');
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            document.body.appendChild(particle);
+
+            const angle = (i / 10) * Math.PI * 2;
+            const velocity = 5;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+
+            let opacity = 1;
+            function animate() {
+                if (opacity <= 0) {
+                    particle.remove();
+                    return;
+                }
+                opacity -= 0.02;
+                particle.style.opacity = opacity;
+                particle.style.left = (parseFloat(particle.style.left) + vx) + 'px';
+                particle.style.top = (parseFloat(particle.style.top) + vy) + 'px';
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+    }
+});
+</script>
+{% endblock %} 
