@@ -1,0 +1,33 @@
+{
+    "builds": [
+        {
+            "src": "config/wsgi.py",
+            "use": "@vercel/python"
+        },
+        {
+            "src": "static/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        },
+        {
+            "src": "/_vercel/insights/script.js",
+            "dest": "https://va.vercel-scripts.com/v1/script.js"
+        },
+        {
+            "src": "/_vercel/speed-insights/script.js",
+            "dest": "https://va.vercel-scripts.com/v1/speed-insights.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "config/wsgi.py"
+        }
+    ],
+    "env": {
+        "PYTHON_VERSION": "3.9"
+    }
+} 
